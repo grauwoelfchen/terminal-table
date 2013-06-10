@@ -448,6 +448,21 @@ module Terminal
       EOF
     end
 
+    it "should handle multibyte characters" do
+      @table.headings = ['name', { :value => 'values', :colspan => 1}]
+      @table.rows = [['äbc', 3], ['あい  うえお', 6], ['あ  い', 3], ['あいうえお', 5], ['  あいうえお', 6]]
+      @table.render.should == <<-EOF.deindent
+        +--------------+--------+
+        | name         | values |
+        +--------------+--------+
+        | äbc          | 3      |
+        | あい  うえお | 6      |
+        | あ  い       | 3      |
+        | あいうえお   | 5      |
+        |   あいうえお | 6      |
+        +--------------+--------+
+      EOF
+    end
 
     it "should handle colspan 1" do
       @table.headings = ['name', { :value => 'values', :colspan => 1}]

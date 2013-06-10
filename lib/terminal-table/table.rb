@@ -183,7 +183,7 @@ module Terminal
         colspan = cell.colspan
         cell_value = cell.value_for_column_width_recalc
         colspan.downto(1) do |j|
-          cell_length = cell_value.to_s.length
+          cell_length = cell_value.to_s.width
           if colspan > 1
             spacing_length = cell_spacing * (colspan - 1)
             length_in_columns = (cell_length - spacing_length)
