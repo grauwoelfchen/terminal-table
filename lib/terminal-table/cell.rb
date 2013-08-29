@@ -59,7 +59,16 @@ module Terminal
         left = " " * @table.style.padding_left
         right = " " * @table.style.padding_right
         render_width = lines[line].to_s.size - escape(lines[line]).size + width
-        "#{left}#{lines[line]}#{right}".align(alignment, render_width + @table.cell_padding)
+        diff = render_width - lines[line].width
+        _value = case alignment
+                 when :left
+                   lines[line].rpad(diff)
+                 when :right
+                   lines[line].lpad(diff)
+                 else #:center
+                   lines[line].align(alignment, render_width)
+                 end
+        "#{left}#{_value}#{right}"
       end
       alias :to_s :render
       
