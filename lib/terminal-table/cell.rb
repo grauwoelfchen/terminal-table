@@ -14,6 +14,11 @@ module Terminal
       attr_reader :value
       
       ##
+      # Cell index.
+
+      attr_reader :index
+
+      ##
       # Column span.
       
       attr_reader :colspan

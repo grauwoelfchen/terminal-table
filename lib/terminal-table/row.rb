@@ -28,7 +28,14 @@ module Terminal
       alias << add_cell
       
       def [] index
-        cells[index]
+        prev_index = (index - 1).downto(0).detect do |i|
+          cells[i] && ((cells[i].index + cells[i].colspan) - index > 0)
+        end
+        if prev_index
+          cells[prev_index]
+        else
+          cells[index]
+        end
       end
       
       def height
